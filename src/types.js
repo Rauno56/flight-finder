@@ -4,6 +4,8 @@ const isStringOrNull = (val) => {
 	return typeof val === 'string' || val === null;
 };
 
+class UserError extends Error {}
+
 class Airport {
 	constructor({ id, name, iata, icao, lat, lng }) {
 		assert.equal(typeof id, 'string', `Invalid Airport, "id" not a string. Got ${id}`);
@@ -44,4 +46,5 @@ module.exports = {
 	InputType,
 	PathFinderResult,
 	Route,
+	UserError,
 };

@@ -1,11 +1,8 @@
 const assert = require('assert');
-const database = require('./pathFinder/databaseUtils.js').loadFile('../../res.json');
+const databaseUtils = require('./pathFinder/databaseUtils.js');
 const PathFinder = require('./pathFinder/PathFinder.js');
-const getAirport = require('./airportCacheGenerator.js')(database.airports);
-const pathFinder = new PathFinder(database);
-const { PathFinderResult, InputType } = require('./types.js');
-
-class UserError extends Error {}
+const airportCacheGenerator = require('./airportCacheGenerator.js');
+const { PathFinderResult, InputType, UserError } = require('./types.js');
 
 const parseInput = (iata, icao, type) => {
 	assert.strictEqual(typeof type, 'string');
@@ -30,7 +27,10 @@ const parseInput = (iata, icao, type) => {
 	throw new UserError(`At least ${type}_iata or ${type}_icao required`);
 };
 
-const formatResult = (finderResult) => {
+const formatResult = (finderResult, stopFormatter) => {
+	stopFormatter = stopFormatter || ((i) => i);
+	assert(typeof stopFormatter, 'function', 'Expected function for stopFormatter');
+
 	if (finderResult === PathFinderResult.NA)  {
 		return {
 			success: false,
@@ -52,33 +52,39 @@ const formatResult = (finderResult) => {
 	if (Array.isArray(finderResult)) {
 		return {
 			success: true,
-			stops: finderResult.map((id) => getAirport(InputType.ID, id)),
+			stops: finderResult.map(stopFormatter),
 		};
 	}
 };
 
 
-module.exports = {
-	UserError,
-	find: (query) => {
-		const fromInput = parseInput(query.from_iata, query.from_icao, 'from');
-		const from = getAirport(...fromInput);
-		if (!from) {
-			throw new UserError('"from" airport not found');
-		}
+module.exports = (database) => {
+	databaseUtils.validate(database);
 
-		const toInput = parseInput(query.to_iata, query.to_icao, 'to');
-		const to = getAirport(...toInput);
-		if (!to) {
-			throw new UserError('"to" airport not found');
-		}
+	const getAirport = airportCacheGenerator(database.airports);
+	const pathFinder = new PathFinder(database.routes);
 
+	return {
+		UserError,
+		find: (query) => {
+			const fromInput = parseInput(query.from_iata, query.from_icao, 'from');
+			const from = getAirport(...fromInput);
+			if (!from) {
+				throw new UserError('"from" airport not found');
+			}
 
-		const route = pathFinder.find(from.id, to.id);
-		return {
-			from,
-			to,
-			route: formatResult(route),
-		};
-	},
+			const toInput = parseInput(query.to_iata, query.to_icao, 'to');
+			const to = getAirport(...toInput);
+			if (!to) {
+				throw new UserError('"to" airport not found');
+			}
+
+			const route = pathFinder.find(from.id, to.id);
+			return {
+				from,
+				to,
+				route: formatResult(route, (id) => getAirport(InputType.ID, id)),
+			};
+		},
+	};
 };

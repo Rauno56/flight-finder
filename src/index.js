@@ -1,11 +1,12 @@
 const express = require('express');
 const app = express();
 const port = 3000;
-const { find, UserError } = require('./api');
+const database = require('./pathFinder/databaseUtils.js').loadFile('../../res.json');
+const { UserError } = require('./types.js');
+const { find } = require('./api')(database);
 
 app.get('/', (req, res) => {
 	const result = find(req.query);
-
 	res.json(result);
 });
 

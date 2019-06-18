@@ -2,18 +2,18 @@ const assert = require('assert');
 const path = require('ngraph.path');
 const createGraph = require('ngraph.graph');
 
-const databaseUtils = require('./databaseUtils.js');
-const { PathFinderResult } = require('../types.js');
+const { PathFinderResult, Route } = require('../types.js');
+const { assertAllOfType } = require('../utils.js');
 const isIdNotDefinedInGraphError = (error) => {
 	return /is not defined in this graph/.test(error.message);
 };
 
 class PathFinder {
-	constructor(database) {
-		databaseUtils.validate(database);
+	constructor(routes) {
+		assertAllOfType(routes, Route);
 
 		const graph = this._graph = createGraph();
-		database.routes.forEach((i) => {
+		routes.forEach((i) => {
 			graph.addLink(i.from, i.to, i);
 		});
 

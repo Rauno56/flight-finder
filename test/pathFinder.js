@@ -1,7 +1,7 @@
 const assert = require('assert');
 const databaseUtils = require('../src/pathFinder/databaseUtils.js');
 const PathFinder = require('../src/pathFinder/PathFinder.js');
-const { PathFinderResult } = require('../src/pathFinder/types.js');
+const { PathFinderResult } = require('../src/types.js');
 
 describe('pathFinder', () => {
 	it('should work on happy path', () => {
@@ -12,7 +12,7 @@ describe('pathFinder', () => {
 			],
 		});
 
-		const pathFinder = new PathFinder(database);
+		const pathFinder = new PathFinder(database.routes);
 
 		const result = pathFinder.find('1', '2');
 
@@ -29,7 +29,7 @@ describe('pathFinder', () => {
 			],
 		});
 
-		const pathFinder = new PathFinder(database);
+		const pathFinder = new PathFinder(database.routes);
 
 		const result = pathFinder.find('1', '2');
 
@@ -48,7 +48,7 @@ describe('pathFinder', () => {
 			],
 		});
 
-		const pathFinder = new PathFinder(database);
+		const pathFinder = new PathFinder(database.routes);
 
 		const result = pathFinder.find('1', '6');
 		assert.strictEqual(result, PathFinderResult.TOO_LONG);
@@ -71,7 +71,7 @@ describe('pathFinder', () => {
 			],
 		});
 
-		const pathFinder = new PathFinder(database);
+		const pathFinder = new PathFinder(database.routes);
 
 		const result = pathFinder.find('1', '6');
 		assert.strictEqual(result, PathFinderResult.NA);
