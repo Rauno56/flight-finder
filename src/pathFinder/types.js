@@ -23,14 +23,14 @@ class Route {
 	}
 }
 
-const PlannerResult = {
+const PathFinderResult = {
 	NA: Symbol('NA'),
 	NO_PATH: Symbol('NO_PATH'),
 	TOO_LONG: Symbol('TOO_LONG'),
 };
 
 module.exports = {
-	PlannerResult,
+	PathFinderResult,
 	Airport,
 	Route,
 };

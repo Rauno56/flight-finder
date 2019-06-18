@@ -4,15 +4,19 @@
   "description": "",
   "main": "src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha"
   },
   "keywords": [],
   "author": "Rauno Viskus",
   "license": "MIT",
   "dependencies": {
     "csv-parse": "^4.4.1",
+    "express": "^4.17.1",
     "geolib": "^2.0.24",
     "ngraph.graph": "^18.0.0",
     "ngraph.path": "^1.2.0"
+  },
+  "devDependencies": {
+    "mocha": "^6.1.4"
   }
 }
