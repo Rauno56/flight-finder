@@ -1,5 +1,5 @@
-const parse = require('csv-parse/lib/sync');
 const fs = require('fs');
+const parse = require('csv-parse/lib/sync');
 
 const readRoutes = (filePath) => parse(fs.readFileSync(filePath), {
 	columns: [

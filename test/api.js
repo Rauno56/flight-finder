@@ -1,5 +1,5 @@
 const assert = require('assert');
-const databaseUtils = require('../src/pathFinder/databaseUtils.js');
+const databaseUtils = require('../src/database/databaseUtils.js');
 const apiGenerator = require('../src/api.js');
 
 describe('api', () => {

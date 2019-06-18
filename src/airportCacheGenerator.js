@@ -1,4 +1,5 @@
 const assert = require('assert');
+
 const { Airport, InputType } = require('./types.js');
 const { assertAllOfType } = require('./utils.js');
 

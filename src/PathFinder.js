@@ -2,8 +2,9 @@ const assert = require('assert');
 const path = require('ngraph.path');
 const createGraph = require('ngraph.graph');
 
-const { PathFinderResult, Route } = require('../types.js');
-const { assertAllOfType } = require('../utils.js');
+const { PathFinderResult, Route } = require('./types.js');
+const { assertAllOfType } = require('./utils.js');
+
 const isIdNotDefinedInGraphError = (error) => {
 	return /is not defined in this graph/.test(error.message);
 };

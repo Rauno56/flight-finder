@@ -1,9 +1,12 @@
 const express = require('express');
-const app = express();
-const port = 3000;
-const database = require('./pathFinder/databaseUtils.js').loadFile('../../res.json');
+
+const config = require('./config');
+const database = require('./database/databaseUtils.js').loadFile(config.databaseFilePath);
 const { UserError } = require('./types.js');
 const { find } = require('./api')(database);
+
+const app = express();
+const port = config.port;
 
 app.get('/', (req, res) => {
 	const result = find(req.query);

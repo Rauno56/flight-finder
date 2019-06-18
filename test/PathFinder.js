@@ -1,9 +1,9 @@
 const assert = require('assert');
-const databaseUtils = require('../src/pathFinder/databaseUtils.js');
-const PathFinder = require('../src/pathFinder/PathFinder.js');
+const databaseUtils = require('../src/database/databaseUtils.js');
+const PathFinder = require('../src/PathFinder.js');
 const { PathFinderResult } = require('../src/types.js');
 
-describe('pathFinder', () => {
+describe('PathFinder', () => {
 	it('should work on happy path', () => {
 		const database = databaseUtils.load({
 			airports: [],

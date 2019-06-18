@@ -1,6 +1,7 @@
 const assert = require('assert');
-const databaseUtils = require('./pathFinder/databaseUtils.js');
-const PathFinder = require('./pathFinder/PathFinder.js');
+
+const databaseUtils = require('./database/databaseUtils.js');
+const PathFinder = require('./PathFinder.js');
 const airportCacheGenerator = require('./airportCacheGenerator.js');
 const { PathFinderResult, InputType, UserError } = require('./types.js');
 

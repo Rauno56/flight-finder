@@ -1,6 +1,7 @@
 const assert = require('assert');
-const read = require('./read');
 const geolib = require('geolib');
+
+const read = require('./read');
 const databaseUtils = require('./databaseUtils');
 const { Airport, Route } = require('../types');
 
