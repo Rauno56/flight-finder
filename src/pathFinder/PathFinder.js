@@ -3,7 +3,7 @@ const path = require('ngraph.path');
 const createGraph = require('ngraph.graph');
 
 const databaseUtils = require('./databaseUtils.js');
-const { PathFinderResult } = require('./types.js');
+const { PathFinderResult } = require('../types.js');
 const isIdNotDefinedInGraphError = (error) => {
 	return /is not defined in this graph/.test(error.message);
 };

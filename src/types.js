@@ -33,8 +33,15 @@ const PathFinderResult = {
 	TOO_LONG: Symbol('TOO_LONG'),
 };
 
+const InputType = {
+	IATA: Symbol('IATA'),
+	ICAO: Symbol('ICAO'),
+	ID: Symbol('ID'),
+};
+
 module.exports = {
-	PathFinderResult,
 	Airport,
+	InputType,
+	PathFinderResult,
 	Route,
 };
