@@ -2,12 +2,12 @@ const assert = require('assert');
 
 class Airport {
 	constructor({ id, name, iata, icao, lat, lng }) {
-		assert(id, 'Missing id');
-		assert(name, 'Missing name');
-		assert(iata, 'Missing iata');
-		assert(icao, 'Missing icao');
-		assert(lat, 'Missing lat');
-		assert(lng, 'Missing lng');
+		assert(id, 'Invalid Airport, missing "id"');
+		assert(name, 'Invalid Airport, missing "name"');
+		assert(iata, 'Invalid Airport, missing "iata"');
+		assert(icao, 'Invalid Airport, missing "icao"');
+		assert(lat, 'Invalid Airport, missing "lat"');
+		assert(lng, 'Invalid Airport, missing "lng"');
 
 		Object.assign(this, { id, name, iata, icao, lat, lng });
 	}
@@ -15,15 +15,22 @@ class Airport {
 
 class Route {
 	constructor({ from, to, distance }) {
-		assert(from, 'Missing from');
-		assert(to, 'Missing to');
-		assert(distance, 'Missing distance');
+		assert(from, 'Invalid Route, missing "from"');
+		assert(to, 'Invalid Route, missing "to"');
+		assert(distance, 'Invalid Route, missing "distance"');
 
 		Object.assign(this, { from, to, distance });
 	}
 }
 
+const PlannerResult = {
+	NA: Symbol('NA'),
+	NO_PATH: Symbol('NO_PATH'),
+	TOO_LONG: Symbol('TOO_LONG'),
+};
+
 module.exports = {
+	PlannerResult,
 	Airport,
 	Route,
 };
