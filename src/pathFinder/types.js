@@ -1,11 +1,15 @@
 const assert = require('assert');
 
+const isStringOrNull = (val) => {
+	return typeof val === 'string' || val === null;
+};
+
 class Airport {
 	constructor({ id, name, iata, icao, lat, lng }) {
 		assert(id, 'Invalid Airport, missing "id"');
 		assert(name, 'Invalid Airport, missing "name"');
-		assert(iata, 'Invalid Airport, missing "iata"');
-		assert(icao, 'Invalid Airport, missing "icao"');
+		assert(isStringOrNull(iata), 'Invalid Airport, missing "iata"');
+		assert(isStringOrNull(icao), 'Invalid Airport, missing "icao"');
 		assert(lat, 'Invalid Airport, missing "lat"');
 		assert(lng, 'Invalid Airport, missing "lng"');
 

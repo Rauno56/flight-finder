@@ -15,6 +15,12 @@ const parser = module.exports = (airportFilePath, routeFilePath) => {
 	const airports = read.readAirports(airportFilePath)
 		.reduce((acc, item) => {
 			try {
+				if (item.iata === '\\N') {
+					item.iata = null;
+				}
+				if (item.icao === '\\N') {
+					item.icao = null;
+				}
 				acc.push(new Airport(item));
 			} catch (e) {
 				console.error('Ignoring airport', item, e.message);
