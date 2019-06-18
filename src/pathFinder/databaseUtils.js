@@ -28,6 +28,9 @@ const utils = module.exports = {
 			routes: data.routes.map((i) => new Route(i)),
 		};
 	},
+	serialize: (data) => {
+		console.log(JSON.stringify(data));
+	},
 	validate: (data) => {
 		allOfType(data.airports, Airport);
 		allOfType(data.routes, Route);

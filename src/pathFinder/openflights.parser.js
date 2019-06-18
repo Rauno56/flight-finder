@@ -1,6 +1,7 @@
 const assert = require('assert');
 const read = require('./read');
 const geolib = require('geolib');
+const databaseUtils = require('./databaseUtils');
 const { Airport, Route } = require('./types');
 
 const findAirport = (airports, id, code) => {
@@ -62,5 +63,5 @@ if (require.main === module) {
 
 	const data = parser(airportsFilePath, routesFilePath);
 
-	console.log(JSON.stringify(data));
+	databaseUtils.serialize(data);
 }
