@@ -65,6 +65,7 @@ const parser = module.exports = (airportFilePath, routeFilePath) => {
 };
 
 if (require.main === module) {
+	// eslint-disable-next-line no-unused-vars
 	const [_bin, _script, airportsFilePath, routesFilePath] = process.argv;
 
 	const data = parser(airportsFilePath, routesFilePath);
