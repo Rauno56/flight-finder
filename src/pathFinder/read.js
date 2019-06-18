@@ -36,7 +36,6 @@ const readAirports = (filePath) => parse(fs.readFileSync(filePath), {
 		'name',
 		'city',
 		'country',
-		'code',
 		'iata',
 		'icao',
 		'lat',
@@ -45,6 +44,7 @@ const readAirports = (filePath) => parse(fs.readFileSync(filePath), {
 		'timeOffset',
 		'dst',
 		'tz',
+		'type',
 		'source',
 	],
 	skip_empty_lines: true
