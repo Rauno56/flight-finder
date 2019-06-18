@@ -58,15 +58,27 @@ const formatResult = (finderResult, stopFormatter) => {
 };
 
 
+
 module.exports = (database) => {
 	databaseUtils.validate(database);
 
 	const getAirport = airportCacheGenerator(database.airports);
 	const pathFinder = new PathFinder(database.routes);
+	/*
+		Missing an airport that has a route to or from could be handled as an error
+		depending on the business requirements, but we are doing our best to avoid
+		it anyways and substitude for a dummy airport for now.
+	*/
+	const idToAirport = (id) => {
+		return (
+			getAirport(InputType.ID, id) ||
+			{ name: 'Unknown Airport', id }
+		);
+	};
 
 	return {
 		UserError,
-		find: (query) => {
+		find: (query = {}) => {
 			const fromInput = parseInput(query.from_iata, query.from_icao, 'from');
 			const from = getAirport(...fromInput);
 			if (!from) {
@@ -83,7 +95,7 @@ module.exports = (database) => {
 			return {
 				from,
 				to,
-				route: formatResult(route, (id) => getAirport(InputType.ID, id)),
+				route: formatResult(route, idToAirport),
 			};
 		},
 	};
