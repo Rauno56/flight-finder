@@ -6,12 +6,12 @@ const isStringOrNull = (val) => {
 
 class Airport {
 	constructor({ id, name, iata, icao, lat, lng }) {
-		assert(id, 'Invalid Airport, missing "id"');
-		assert(name, 'Invalid Airport, missing "name"');
-		assert(isStringOrNull(iata), 'Invalid Airport, missing "iata"');
-		assert(isStringOrNull(icao), 'Invalid Airport, missing "icao"');
-		assert(lat, 'Invalid Airport, missing "lat"');
-		assert(lng, 'Invalid Airport, missing "lng"');
+		assert.equal(typeof id, 'string', `Invalid Airport, "id" not a string. Got ${id}`);
+		assert.equal(typeof name, 'string', `Invalid Airport, "name" not a string. Got ${name}`);
+		assert(isStringOrNull(iata), `Invalid Airport, "iata" not a string nor null. Got ${iata}`);
+		assert(isStringOrNull(icao), `Invalid Airport, "icao" not a string nor null. Got ${icao}`);
+		assert.equal(typeof lat, 'number', `Invalid Airport, "lat" not a number. Got ${lat}`);
+		assert.equal(typeof lng, 'number', `Invalid Airport, "lng" not a number. Got ${lng}`);
 
 		Object.assign(this, { id, name, iata, icao, lat, lng });
 	}
@@ -19,9 +19,9 @@ class Airport {
 
 class Route {
 	constructor({ from, to, distance }) {
-		assert(from, 'Invalid Route, missing "from"');
-		assert(to, 'Invalid Route, missing "to"');
-		assert(distance, 'Invalid Route, missing "distance"');
+		assert.equal(typeof from, 'string', `Invalid Route, "from" not a string. Got ${from}`);
+		assert.equal(typeof to, 'string', `Invalid Route, "to" not a string. Got ${to}`);
+		assert.equal(typeof distance, 'number', `Invalid Route, "distance" not a number. Got ${distance}`);
 
 		Object.assign(this, { from, to, distance });
 	}

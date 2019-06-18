@@ -22,6 +22,8 @@ const parser = module.exports = (airportFilePath, routeFilePath) => {
 				if (item.icao === NULL_STRING) {
 					item.icao = null;
 				}
+				item.lat = parseFloat(item.lat);
+				item.lng = parseFloat(item.lng);
 				acc.push(new Airport(item));
 			} catch (e) {
 				console.error('Ignoring airport', item, e.message);
