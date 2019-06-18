@@ -4,6 +4,7 @@ const geolib = require('geolib');
 const databaseUtils = require('./databaseUtils');
 const { Airport, Route } = require('../types');
 
+const NULL_STRING = '\\N';
 const findAirport = (airports, id, code) => {
 	const matcher = (item) => {
 		return item.id === id || item.code === code;
@@ -15,10 +16,10 @@ const parser = module.exports = (airportFilePath, routeFilePath) => {
 	const airports = read.readAirports(airportFilePath)
 		.reduce((acc, item) => {
 			try {
-				if (item.iata === '\\N') {
+				if (item.iata === NULL_STRING) {
 					item.iata = null;
 				}
-				if (item.icao === '\\N') {
+				if (item.icao === NULL_STRING) {
 					item.icao = null;
 				}
 				acc.push(new Airport(item));
