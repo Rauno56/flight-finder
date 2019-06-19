@@ -1,0 +1,23 @@
+FROM node:12-alpine as base
+
+LABEL maintainer "Rauno Viskus"
+WORKDIR /app/
+
+COPY package.json package-lock.json ./
+RUN npm ci
+
+COPY . ./
+
+FROM base as build
+
+RUN wget https://raw.githubusercontent.com/jpatokal/openflights/master/data/airports.dat
+RUN wget https://raw.githubusercontent.com/jpatokal/openflights/master/data/routes.dat
+RUN node src/database/openflights.parser.js airports.dat routes.dat > database.json
+
+FROM base
+
+RUN npm prune --production
+COPY --from=build /app/database.json ./
+
+EXPOSE 3000
+CMD npm run start

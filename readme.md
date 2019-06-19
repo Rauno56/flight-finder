@@ -1,5 +1,9 @@
 # Flight Finder
 
+### Running
+
+Easiest way to get the project running is to use the pre-built Docker image.
+
 ### Structure
 
 Project is logically split into 4 parts:

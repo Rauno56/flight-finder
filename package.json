@@ -1,9 +1,10 @@
 {
   "name": "flight-finder",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "",
   "main": "src/index.js",
   "scripts": {
+    "start": "node ./src",
     "test": "mocha"
   },
   "keywords": [],
