@@ -1,8 +1,125 @@
 # Flight Finder
 
+### API
+
+Application exposes one endpoint: `/`
+
+It requires query parameters for "from" and "to" airport iata and icao codes. Codes are **not** case sensitive:
+
+* `from_iata` or `from_icao` for providing souce airport.
+* `to_iata` or `to_icao` for providing destination airport.
+
+#### Response
+
+In pseudo-ts:
+
+```
+Response {
+    from: Airport;
+    to: Airport;
+    route: {
+        success: boolean;
+        stops?: Airport[];
+        message?: string;
+    };
+};
+
+Airport {
+    id: string;
+    name: string;
+    iata: string;
+    icao: string;
+    lat: float;
+    lng: float;
+};
+```
+
+If success is `true`, stops are defined. If success is `false`, message describing why the stops cannot be provided. Possible reasons for that:
+
+* *Do not know the best route*: The API is not fully spec compliant. It's not able to find a route if the most efficient route in terms of distance is over 4 stops, but there exists a path that is 4 stops or under.
+* *No path between provided airports*
+* *Path between provided airports too long*: Gapped on 4 stops.
+
+#### Successful path found
+
+Example: `curl localhost:3000/?from_iata=tln&to_iata=HHN`
+Response:
+
+```
+{
+  "from": {
+    "id": "1438",
+    "name": "Toulon-Hyères Airport",
+    "iata": "TLN",
+    "icao": "LFTH",
+    "lat": 43.0973014832,
+    "lng": 6.14602994919
+  },
+  "to": {
+    "id": "355",
+    "name": "Frankfurt-Hahn Airport",
+    "iata": "HHN",
+    "icao": "EDFH",
+    "lat": 49.9487,
+    "lng": 7.26389
+  },
+  "route": {
+    "success": true,
+    "stops": [
+      {
+        "id": "1438",
+        "name": "Toulon-Hyères Airport",
+        "iata": "TLN",
+        "icao": "LFTH",
+        "lat": 43.0973014832,
+        "lng": 6.14602994919
+      },
+      {
+        "id": "548",
+        "name": "London Stansted Airport",
+        "iata": "STN",
+        "icao": "EGSS",
+        "lat": 51.8849983215,
+        "lng": 0.234999999404
+      },
+      {
+        "id": "355",
+        "name": "Frankfurt-Hahn Airport",
+        "iata": "HHN",
+        "icao": "EDFH",
+        "lat": 49.9487,
+        "lng": 7.26389
+      }
+    ]
+  }
+}
+```
+
+#### Failure responses
+
+Failure responses are also formatted as JSON. Example:
+
+Example: `curl localhost:3000/`
+Response:
+```
+{
+  "error": "At least from_iata or from_icao required"
+}
+```
+
 ### Running
 
-Easiest way to get the project running is to use the pre-built Docker image.
+Easiest way to get the project running is to use the pre-built Docker image with the database built in:
+
+```
+docker run -p 3000:3000 -it rauno56/flight-finder:full
+```
+
+To use the image without database, you need to map that as a volume to the default location of `database.json`:
+
+```
+docker run -p 3333:3000 -v /path/to/database.json:/app/database.json -it rauno56/flight-finder:latest
+```
 
 ### Structure
 
