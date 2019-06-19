@@ -107,6 +107,19 @@ Response:
 }
 ```
 
+### Generating the DB
+
+The database can be created from OpenFlights data:
+
+```
+node src/database/openflights.parser.js airports.dat routes.dat > database.json
+```
+
+Source files can be downloaded from `https://openflights.org/data.html`. Also available from direct links:
+
+* `airports.dat`: `https://raw.githubusercontent.com/jpatokal/openflights/master/data/airports.dat`
+* `routes.dat`: `https://raw.githubusercontent.com/jpatokal/openflights/master/data/routes.dat`
+
 ### Running
 
 Easiest way to get the project running is to use the pre-built Docker image with the database built in:
