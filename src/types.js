@@ -41,10 +41,16 @@ const InputType = {
 	ID: Symbol('ID'),
 };
 
+const PathFinderType = {
+	JS: Symbol('JS'),
+	RUST: Symbol('RUST'),
+};
+
 module.exports = {
 	Airport,
 	InputType,
 	PathFinderResult,
+	PathFinderType,
 	Route,
 	UserError,
 };
