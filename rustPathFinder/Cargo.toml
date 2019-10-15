@@ -1,5 +1,5 @@
 [package]
-name = "wasm-game-of-life"
+name = "flight-finder"
 version = "0.1.0"
 authors = ["Rauno Viskus <Rauno56@gmail.com>"]
 edition = "2018"

@@ -1,5 +1,5 @@
 const assert = require('assert');
-const { PathFinder: WasmPathFinder } = require('../../rustPathFinder/pkg');
+const { PathFinder: WasmPathFinder } = require('../../rustPathFinder/release');
 
 const { PathFinderResult, Route } = require('../types.js');
 const { assertAllOfType } = require('../utils.js');
