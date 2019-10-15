@@ -1,7 +1,7 @@
 const assert = require('assert');
 
 const databaseUtils = require('./database/databaseUtils.js');
-const PathFinder = require('./PathFinder.js');
+const { forceLoadModule: loadPathFinder } = require('./PathFinder.js');
 const airportCacheGenerator = require('./airportCacheGenerator.js');
 const { PathFinderResult, InputType, UserError } = require('./types.js');
 
@@ -30,7 +30,7 @@ const parseInput = (iata, icao, type) => {
 
 const formatResult = (finderResult, stopFormatter) => {
 	stopFormatter = stopFormatter || ((i) => i);
-	assert(typeof stopFormatter, 'function', 'Expected function for stopFormatter');
+	assert.strictEqual(typeof stopFormatter, 'function', 'Expected function for stopFormatter');
 
 	if (finderResult === PathFinderResult.NA)  {
 		return {
@@ -60,9 +60,10 @@ const formatResult = (finderResult, stopFormatter) => {
 
 
 
-module.exports = (database) => {
+module.exports = (database, pathFinderType) => {
 	databaseUtils.validate(database);
 
+	const PathFinder = loadPathFinder(pathFinderType);
 	const getAirport = airportCacheGenerator(database.airports);
 	const pathFinder = new PathFinder(database.routes);
 	/*

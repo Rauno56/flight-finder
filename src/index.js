@@ -3,7 +3,7 @@ const express = require('express');
 const config = require('./config');
 const database = require('./database/databaseUtils.js').loadFile(config.databaseFilePath);
 const { UserError } = require('./types.js');
-const { find } = require('./api')(database);
+const { find } = require('./api')(database, config.pathFinderType);
 
 const app = express();
 const port = config.port;

@@ -1,0 +1,15 @@
+{
+  "name": "flight-finder",
+  "collaborators": [
+    "Rauno Viskus <Rauno56@gmail.com>"
+  ],
+  "version": "0.1.0",
+  "files": [
+    "flight_finder_bg.wasm",
+    "flight_finder.js",
+    "flight_finder_bg.js",
+    "flight_finder.d.ts"
+  ],
+  "main": "flight_finder.js",
+  "types": "flight_finder.d.ts"
+}
